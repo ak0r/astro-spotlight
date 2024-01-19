@@ -4,6 +4,6 @@
         "siteDescription": "This is site description",
         "baseURL": "htps://example.com",
         "basePath": "/",
-        "avatarImage": "/favicon.svg"
+        "avatarImage": "/images/avatar.png"
     }
 }

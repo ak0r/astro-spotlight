@@ -3,13 +3,14 @@ import Container from './Container.astro'
 import NavBar from './NavBar.astro'
 import MobileNav from './MobileNav'
 import ThemeToggle from './ThemeToggle.astro'
+import Avatar from './Avatar.astro'
 ---
 <header class="relative z-50 flex flex-col">
     <div class="top-0 z-10 h-16 pt-6">
       <Container className="top-0">
         <div class="relative flex gap-4">
             <div class="flex">
-                <h4>logo</h4>
+                <Avatar />
             </div>
             <div class="flex flex-1 md:justify-center">
                 <NavBar />

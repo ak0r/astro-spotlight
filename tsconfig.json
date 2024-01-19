@@ -5,6 +5,7 @@
     "paths": {
       "@/assets/*": ["./src/assets/*"],
       "@/components/*": ["./src/components/*"],
+      "@/configs/*": ["./src/configs/*"],
       "@/layouts/*": ["./src/layouts/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/scripts/*": ["./src/scripts/*"],
