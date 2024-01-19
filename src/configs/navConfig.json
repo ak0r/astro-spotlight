@@ -1,0 +1,34 @@
+{
+    "headerNav": [
+      {
+        "title": "Home",
+        "url": "/"
+      },
+      {
+        "title": "Notes",
+        "url": "/notes"
+      },
+      {
+        "title": "Travels",
+        "url": "/travels"
+      },
+      {
+        "title": "About",
+        "url": "/about"
+      }
+    ],
+    "footerNav": [
+      {
+        "title": "Home",
+        "url": "/"
+      },
+      {
+        "title": "About",
+        "url": "/about"
+      },
+      {
+        "title": "Privacy Policy",
+        "url": "/privacy-policy"
+      }
+    ]
+  }
