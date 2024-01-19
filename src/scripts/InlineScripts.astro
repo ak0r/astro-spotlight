@@ -1,0 +1,10 @@
+---
+---
+<script is:inline>
+    //check for dark mode in local storage using the theme var
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+</script>

@@ -3,9 +3,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/assets/*": ["./src/assets/*"],
       "@/components/*": ["./src/components/*"],
       "@/layouts/*": ["./src/layouts/*"],
       "@/styles/*": ["./src/styles/*"],
+      "@/scripts/*": ["./src/scripts/*"],
       "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",

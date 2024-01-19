@@ -1,10 +1,23 @@
 ---
-import BaseHead from '../components/common/BaseHead.astro'
+import BaseHead from '../components/BaseHead.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
 ---
 <!doctype html>
 <html lang="en" class="text-base h-full antialiased">
     <BaseHead />
-    <body class="flex light bg-background text-foreground min-h-screen break-words leading-6 transition-colors duration-500">
+    <body class="flex flex-col bg-background text-foreground min-h-screen break-words leading-6 transition-colors duration-500">
+        <div class="fixed inset-0 flex justify-center sm:px-8">
+            <div class="flex w-full max-w-7xl lg:px-8">
+                <div class="w-full bg-container ring-1 ring-zinc-300 dark:ring-zinc-300/20" />
+            </div>
+        </div>
+        <slot name="Header">
+            <Header />
+        </slot>
         <slot />
+        <slot name="Footer">
+            <Footer />
+        </slot>
     </body>
 </html>
