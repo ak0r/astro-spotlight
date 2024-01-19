@@ -1,6 +1,10 @@
+---
+import BaseHead from '../components/common/BaseHead.astro'
+---
 <!doctype html>
 <html lang="en">
-    <body>
+    <BaseHead />
+    <body class="dark bg-background text-foreground">
         <slot />
     </body>
 </html>
