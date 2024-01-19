@@ -10,10 +10,14 @@ export default {
 	],
 	theme: {
 		extend: {
-			sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
+			fontFamily:{
+				primary: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
+				secondary: ["Josefin Sans Variable", "Josefin", ...defaultTheme.fontFamily.sans]
+			}
 		},
 	},
 	plugins: [
+		require('@tailwindcss/typography'),
 		nextui()
 	],
 	darkMode: 'class',
