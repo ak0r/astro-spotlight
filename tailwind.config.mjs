@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+const defaultTheme = require("tailwindcss/defaultTheme");
 const { nextui } = require("@nextui-org/react");
 
 export default {
@@ -9,7 +10,7 @@ export default {
 	],
 	theme: {
 		extend: {
-
+			sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
 		},
 	},
 	plugins: [
