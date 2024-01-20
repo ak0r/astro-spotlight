@@ -5,25 +5,24 @@ import MobileNav from './MobileNav'
 import ThemeToggle from './ThemeToggle.astro'
 import Avatar from './Avatar.astro'
 ---
-<header class="relative z-50 flex flex-col">
-    <div class="top-0 z-10 h-16 pt-6">
-      <Container className="top-0">
-        <div class="relative flex gap-4">
-            <div class="flex">
-                <Avatar />
-            </div>
-            <div class="flex flex-1 md:justify-center">
-                <NavBar />
-            </div>
-            <div class="flex">
-                <div class="md:hidden">
-                    <MobileNav client:visible/>
+
+<header class="relative flex flex-col z-50">
+    <div class="top-0 z-10 h-16 pt-6 sticky" style="position: sticky">
+        <Container outerClass="top-0 w-full sticky">
+            <div class="relative flex gap-4">
+                <div class="flex flex-1">
+                    <Avatar />
+                </div>
+                <div class="flex flex-1 justify-end md:justify-center">
+                    <NavBar />
+                    <div class="md:hidden">
+                        <MobileNav client:visible/>
+                    </div>
+                </div>
+                <div class="flex justify-end md:flex-1">
+                    <ThemeToggle />
                 </div>
             </div>
-            <div class="flex justify-end">
-                <ThemeToggle />
-            </div>
-        </div>
-      </Container>
+        </Container>
     </div>
 </header>

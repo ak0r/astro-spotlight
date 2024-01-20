@@ -12,13 +12,13 @@ import Footer from '@/components/Footer.astro'
                 <div class="w-full bg-container ring-1 ring-zinc-300 dark:ring-zinc-300/20" />
             </div>
         </div>
-        <slot name="Header">
+        <div class="relative">
             <Header />
-        </slot>
-        <slot />
-        <slot name="Footer">
+            <main>
+                <slot />
+            </main>
             <Footer />
-        </slot>
+        </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     </body>
 </html>
