@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Container from '@/components/Container.astro'
+import PageTitle from '@/components/PageTitle.astro'
+import NoteCard from '../../components/NoteCard.astro'
+---
+<BaseLayout>
+    <Container outerClass="mt-16 sm:mt-32">
+      <PageTitle 
+          title="Notes on software, building products, and other stuff."
+          intro="All of my thoughts on programming, building products, leadership, travelling, whisky, and other random stuff. Not structured."
+      />
+      <div class="mt-16">
+        <NoteCard />
+      </div>
+    </Container>
+  </BaseLayout>
