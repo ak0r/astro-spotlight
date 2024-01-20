@@ -14,7 +14,7 @@ export default function App() {
         {
           headerNav.map((page) => {
             return (
-              <DropdownItem key={page.url}>{page.title}</DropdownItem>
+              <DropdownItem key={page.title} href={page.url}>{page.title}</DropdownItem>
             );
           })
         }
