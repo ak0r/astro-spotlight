@@ -1,24 +1,23 @@
 ---
-import BaseHead from '../components/BaseHead.astro'
-import Header from '@/components/Header.astro'
-import Footer from '@/components/Footer.astro'
+import BaseHead from '@components/BaseHead.astro'
+import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
 ---
 <!doctype html>
 <html lang="en" class="text-base h-full antialiased">
     <BaseHead />
     <body class="flex flex-col bg-background text-foreground min-h-screen break-words leading-6 transition-colors duration-500">
+        <!-- Ring around body -->
         <div class="fixed inset-0 flex justify-center sm:px-8">
             <div class="flex w-full max-w-7xl lg:px-8">
                 <div class="w-full bg-container ring-1 ring-zinc-300 dark:ring-zinc-300/20" />
             </div>
         </div>
-        <div class="relative">
-            <Header />
-            <main>
-                <slot />
-            </main>
-            <Footer />
-        </div>
+        <Header />
+        <main>
+            <slot />
+        </main>
+        <Footer />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     </body>
 </html>

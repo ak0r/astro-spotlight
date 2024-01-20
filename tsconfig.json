@@ -3,12 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/assets/*": ["./src/assets/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/configs/*": ["./src/configs/*"],
-      "@/layouts/*": ["./src/layouts/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/scripts/*": ["./src/scripts/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@configs/*": ["./src/configs/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@scripts/*": ["./src/scripts/*"],
       "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
