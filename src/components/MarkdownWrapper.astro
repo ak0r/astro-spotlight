@@ -1,5 +1,6 @@
 ---
+const { className } = Astro.props
 ---
-<article class="md:prose-lg xl:prose-xl prose prose-zinc w-full dark:prose-invert">
+<article class:list={["md:prose-lg xl:prose-xl prose prose-zinc w-full dark:prose-invert", className]}>
     <slot />
 </article>

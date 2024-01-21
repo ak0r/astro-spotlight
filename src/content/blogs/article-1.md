@@ -1,7 +1,7 @@
 ---
 title: "Post 1"
 excerpt: "Post 1 excerpt"
-featuredImage: "/images/image-placeholder.png"
+featuredImage: "https://picsum.photos/900/600?random=1.webp"
 categories: ["category 1", "category 2"]
 tags: ["tag 1", "tag 2"]
 slug: "post-1"
