@@ -1,0 +1,26 @@
+---
+
+import { getCollection, getEntries, type CollectionEntry } from "astro:content";
+
+
+import SinglePost from '@components/SinglePost.astro';
+
+export async function getStaticPaths () {
+    const allBlogs = await getCollection("blogs")    
+    return allBlogs.map((entry) => ({
+        params: { slug: entry.slug },
+        props: { entry }
+    }) );
+}
+
+type Props = {
+    entry: CollectionEntry<"blogs">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<SinglePost frontMatter={entry.data}>
+    <Content />
+</SinglePost>

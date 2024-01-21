@@ -1,8 +1,11 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro'
-import Container from '@components/Container.astro'
-import PageTitle from '@components/PageTitle.astro'
-import BlogCard from '@components/BlogCard.astro'
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Container from '@components/Container.astro';
+import PageTitle from '@components/PageTitle.astro';
+import BlogCard from '@components/BlogCard.astro';
+
+import { getCollection } from 'astro:content';
+const allBlogs = await getCollection("blogs");
 ---
 <BaseLayout>
     <Container outerClass="mt-16 sm:mt-32">
@@ -13,8 +16,9 @@ import BlogCard from '@components/BlogCard.astro'
       <div class="mt-16">
         <div class="flex flex-col gap-4">
           <div class="md:grid md:grid-cols-2">
-            <BlogCard />
-            <BlogCard />
+            {
+              allBlogs.map((post) => <BlogCard singlePost={post} />)
+            }
           </div>
         </div>
       </div>

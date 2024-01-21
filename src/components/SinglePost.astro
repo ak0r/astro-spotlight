@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro"
+import Container from "./Container.astro"
+import MarkdownWrapper from "./MarkdownWrapper.astro"
+import { Image } from "astro:assets";
+
+const { frontMatter } = Astro.props;
+---
+
+<BaseLayout>
+    <Container outerClass="mt-16 sm:mt-32">
+        <div class="xl:relative">
+            <div class="mx-auto max-w-3xl">
+                <button
+                    type="button"
+                    class="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20 lg:absolute lg:-left-5 lg:mb-0 lg:-mt-2 xl:-top-1.5 xl:left-0 xl:mt-0"
+                >
+                    Back
+                </button>
+                <article>
+                    <Image 
+                        src={frontMatter.featuredImage}
+                        alt={frontMatter.title}
+                        class=""
+                        sizes={`(max-width: 360px) 240px, (max-width: 720px) 640px, (max-width: 1600px) 900px`}
+                        widths={[240, 540, 720]}
+                        width={900}
+                        height={600}
+                        format='webp'
+                        loading="lazy"
+                    />
+                    <div class="flex flex-col">
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
+                        <div class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500">
+                            <span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span>
+                            <span class="ml-3">December 16, 2023</span>
+                        </div>
+                    </div>
+                    <MarkdownWrapper class="mt-8">
+                        <slot />
+                    </MarkdownWrapper>
+                </article>
+            </div>
+        </div>
+    </Container>
+</BaseLayout>
