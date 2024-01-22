@@ -1,5 +1,5 @@
 # editors
-/.vscode
+.vscode/
 
 # build output
 dist/
