@@ -13,28 +13,27 @@ const postSlug = `blog/${singlePost.slug}`;
 
 ---
 <article>
-    <div class="p-4 sm:p-1">
-        <div class="rounded-lg shadow">
-            <div class="">
+    <div class="p-2">
+        <div class="rounded-lg ring-1 ring-zinc-900/5  dark:ring-white/10">
+            <a href={postSlug}>
+                <Image 
+                    src={featuredImage}
+                    alt={title}
+                    class="rounded-lg"
+                    sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px`}
+                    widths={[240, 540, 720]}
+                    width={900}
+                    height={600}
+                    format='webp'
+                />
+            </a>
+            <div class="p-5">
                 <a href={postSlug}>
-                    <Image 
-                        src={featuredImage}
-                        alt={title}
-                        class="rounded-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5  dark:ring-white/10 "
-                        sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px`}
-                        widths={[240, 540, 720]}
-                        width={600}
-                        height={400}
-                        format='webp'
-                    />
+                    <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
                 </a>
-            </div>
-            <div class="p-5 mb-5">
-                <BlogMeta date={publishedDate} category={category} />
 
-                <a href={postSlug}>
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
-                </a>
+                <BlogMeta date={publishedDate} category={category} className="mt-4"/>
+
                 <!-- enable this to show excerpt -->
                 <!-- <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{excerpt}</p> -->
                 
