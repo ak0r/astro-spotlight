@@ -3,7 +3,7 @@ import BaseLayout from "@layouts/BaseLayout.astro"
 import Container from "./Container.astro"
 import MarkdownWrapper from "./MarkdownWrapper.astro"
 import { Image } from "astro:assets";
-
+import FormattedDate from './FormattedDate.astro'
 const { frontMatter } = Astro.props;
 ---
 
@@ -30,11 +30,12 @@ const { frontMatter } = Astro.props;
                         loading="lazy"
                     />
                     <div class="flex flex-col">
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
-                        <div class="flex items-center text-base text-zinc-400 dark:text-zinc-500">
-                            <span class="h-4 w-0.5 rounded-full bg-zinc-500 "></span>
-                            <span class="ml-3">December 16, 2023</span>
+                        <h1 class="mt-8 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
+                        <div class="fle flex-auto mt-2 space-x-2 text-base">
+                            <span class="inline-flex items-center rounded-lg p-2 text-xs font-medium bg-zinc-300/50 dark:bg-zinc-800/90 text-zinc-500 dark:text-zinc-400 ring-1 ring-inset ring-gray-500/50 mb-4">{frontMatter.category}</span>
+                            <span class=" text-zinc-500 dark:text-zinc-400 text-sm">Updated On <FormattedDate date={frontMatter.publishedDate}></span>
                         </div>
+                        
                     </div>
                     <MarkdownWrapper className="mt-8">
                         <slot />

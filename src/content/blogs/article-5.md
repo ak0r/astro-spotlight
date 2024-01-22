@@ -2,7 +2,7 @@
 title: "Post 5"
 excerpt: "Post 5 excerpt"
 featuredImage: "https://picsum.photos/900/600?random=5.webp"
-categories: ["category 3", "category 2"]
+category: "Category 3"
 tags: ["tag 2", "tag 3"]
 slug: "post-5"
 published: false

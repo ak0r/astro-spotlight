@@ -19,7 +19,6 @@ type Props = {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-console.log("This is Entry", entry);
 ---
 
 <SinglePost frontMatter={entry.data}>

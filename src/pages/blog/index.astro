@@ -14,7 +14,7 @@ const allBlogs = await getCollection("blogs");
         intro="All of my thoughts on programming, building products, leadership, travelling, whisky, and other random stuff. Not structured."
       />
       <div class="mt-16">
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-row md:flex-col gap-4">
           <div class="md:grid md:grid-cols-2">
             {
               allBlogs.map((post) => <BlogCard singlePost={post} />)
