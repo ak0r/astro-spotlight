@@ -1,7 +1,6 @@
 ---
 
-import { getCollection, getEntries, type CollectionEntry } from "astro:content";
-
+import { getCollection, getEntries, type CollectionEntry, getEntry  } from "astro:content";
 
 import SinglePost from '@components/SinglePost.astro';
 
@@ -15,10 +14,12 @@ export async function getStaticPaths () {
 
 type Props = {
     entry: CollectionEntry<"blogs">;
-}
+};
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+console.log("This is Entry", entry);
 ---
 
 <SinglePost frontMatter={entry.data}>
