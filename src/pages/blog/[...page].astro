@@ -3,9 +3,16 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
 import BlogCard from '@components/BlogCard.astro';
-
 import { getCollection } from 'astro:content';
-const allBlogs = await getCollection("blogs");
+import Pagination from '@components/Pagination.astro';
+
+export async function getStaticPaths ( {paginate} ) {
+    const allBlogs = await getCollection("blogs");
+    return paginate(allBlogs, { pageSize: 2, })
+}
+
+const { page } = Astro.props;
+
 ---
 <BaseLayout>
     <Container outerClass="mt-16 sm:mt-32">
@@ -14,11 +21,14 @@ const allBlogs = await getCollection("blogs");
         intro="All of my thoughts on programming, building products, leadership, travelling, whisky, and other random stuff. Not structured."
       />
       <div class="mt-16">
-        <div class="flex flex-row md:flex-col gap-4">
-          <div class="md:grid md:grid-cols-2">
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-row flex-wrap gap-2">
             {
-              allBlogs.map((post) => <BlogCard singlePost={post} />)
+              page.data.map((post) => <BlogCard singlePost={post} />)
             }
+          </div>
+          <div class="flex flex-row w-full justify-center">
+            <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
           </div>
         </div>
       </div>

@@ -1,0 +1,13 @@
+---
+
+import { slugify } from "@scripts/utils";
+
+export async function getStaticPaths() {
+    return [
+        {
+            params: { category: slugify("Maharashtra") },
+            props: { name: "Maharashtra" },
+        }
+    ]
+}
+---
