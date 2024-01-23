@@ -1,9 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
+
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
 import BlogCard from '@components/BlogCard.astro';
-import { getCollection } from 'astro:content';
 import Pagination from '@components/Pagination.astro';
 
 export async function getStaticPaths ( {paginate} ) {
@@ -22,12 +23,12 @@ const { page } = Astro.props;
       />
       <div class="mt-16">
         <div class="flex flex-col gap-4">
-          <div class="flex flex-row flex-wrap gap-2">
+          <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
             {
               page.data.map((post) => <BlogCard singlePost={post} />)
             }
           </div>
-          <div class="flex flex-row w-full justify-center">
+          <div class="flex flex-row justify-around">
             <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
           </div>
         </div>
