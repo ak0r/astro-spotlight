@@ -1,46 +1,31 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro"
-import Container from "./Container.astro"
 import MarkdownWrapper from "./MarkdownWrapper.astro"
 import { Image } from "astro:assets";
-import FormattedDate from './FormattedDate.astro'
 import BlogMeta from "./BlogMeta.astro";
 const { frontMatter } = Astro.props;
 ---
-
-<BaseLayout>
-    <Container outerClass="mt-16 sm:mt-32">
-        <div class="xl:relative">
-            <div class="mx-auto max-w-3xl">
-                <button
-                    type="button"
-                    class="group mb-8 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 transition dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0 dark:ring-white/10 dark:hover:border-zinc-700 dark:hover:ring-white/20 lg:absolute lg:-left-5 lg:mb-0 lg:-mt-2 xl:-top-1.5 xl:left-0 xl:mt-0"
-                >
-                ←
-                </button>
-                <article class="flex flex-col">
-                    <Image 
-                        src={frontMatter.featuredImage}
-                        alt={frontMatter.title}
-                        class="rounded-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5  dark:ring-white/10"
-                        sizes={`(max-width: 360px) 240px, (max-width: 720px) 640px, (max-width: 1600px) 900px`}
-                        widths={[240, 540, 720]}
-                        width={900}
-                        height={600}
-                        format='webp'
-                        loading="lazy"
-                    />
-                    <div class="flex flex-col">
-                        <h1 class="mt-8 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
-                        <BlogMeta date={frontMatter.publishedDate} category={frontMatter.category} className="mt-4"/>
-                        
-                    </div>
-                    <MarkdownWrapper className="mt-4 mb-4">
-                        <slot />
-                    </MarkdownWrapper>
-                    <BlogMeta date={frontMatter.publishedDate} category={frontMatter.category} className="mt-4"/>
-                </article>
-            </div>
+<section class="mx-auto max-w-4xl">
+    <article class="flex flex-col">
+        <Image 
+            src={frontMatter.featuredImage}
+            alt={frontMatter.title}
+            class="rounded-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5  dark:ring-white/10"
+            sizes={`(max-width: 360px) 240px, (max-width: 720px) 640px, (max-width: 1600px) 900px`}
+            widths={[240, 540, 720]}
+            width={900}
+            height={600}
+            format='webp'
+            loading="lazy"
+        />
+        
+        <h1 class="items-start mt-8 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
+        
+        <BlogMeta date={frontMatter.publishedDate} category={frontMatter.category} className="mt-4"/>
+        <div class="flex justify-center py-4">
+            <MarkdownWrapper className="mt-4 mb-4 max-w-3xl">
+                <slot />
+            </MarkdownWrapper>
         </div>
-    </Container>
-</BaseLayout>
+        <BlogMeta date={frontMatter.publishedDate} category={frontMatter.category} className="mt-4"/>
+    </article>
+</section>

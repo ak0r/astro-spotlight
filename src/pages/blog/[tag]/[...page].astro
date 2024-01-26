@@ -1,5 +1,6 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, Entry } from 'astro:content';
+import { slugify } from '@utils/utils'
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
@@ -8,14 +9,29 @@ import BlogCard from '@components/BlogCard.astro';
 import Pagination from '@components/Pagination.astro';
 
 export async function getStaticPaths ({ paginate }) {
-    const allBlogs: CollectionEntry<"blogs"> = (await getCollection("blogs"))
+  
+  const allPosts: CollectionEntry<"blogs"> = (await getCollection("blogs"))
       .sort((a:CollectionEntry<"blogs">, b:CollectionEntry<"blogs">) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
-    return paginate(allBlogs, { pageSize: 4, })
+  const allTags = new Set<string>();
+  allPosts.map((post) => {
+    Array.isArray(post.data.tags) && post.data.tags.map((tag) => allTags.add(slugify(tag.toLowerCase())));
+  });
+  return Array.from(allTags).flatMap((tag) => {
+    const fileterdPosts: CollectionEntry<"blogs"> = allPosts.filter((post) => Array.isArray(post.data.tags) && post.data.tags.find((elem) => slugify(elem.toLowerCase()) === tag));
+  return paginate(
+    fileterdPosts, {
+      params: {tag: tag},
+      pageSize: 2,
+      props: { tag },
+    });
+  });
 }
 
 const { page } = Astro.props;
+const params = Astro.params;
 
 ---
+
 <BaseLayout>
   <Container outerClass="mt-16 sm:mt-32">
     <PageTitle

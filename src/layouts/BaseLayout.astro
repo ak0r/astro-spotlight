@@ -2,6 +2,7 @@
 import BaseHead from '@components/BaseHead.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
+import Container from '@components/Container.astro'
 ---
 <!doctype html>
 <html lang="en" class="text-base h-full antialiased">
@@ -10,12 +11,6 @@ import Footer from '@components/Footer.astro'
     </head>
     
     <body class="flex flex-col bg-background text-foreground min-h-screen break-words leading-6 transition-colors duration-500">
-        <!-- Ring around body -->
-        <div class="fixed inset-0 flex justify-center sm:px-8">
-            <div class="flex w-full max-w-7xl lg:px-8">
-                <div class="w-full bg-container ring-1 ring-zinc-300 dark:ring-zinc-300/20" />
-            </div>
-        </div>
         <Header />
         <main>
             <slot />
