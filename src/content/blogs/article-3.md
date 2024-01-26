@@ -2,11 +2,11 @@
 title: "Post 3"
 excerpt: "Post 3 excerpt"
 featuredImage: "https://picsum.photos/900/600?random=3.webp"
-category: "Category 1"
+category: "Category-1"
 tags: ["tag 2"]
 slug: "post-3"
 published: false
-publishedDate: 2024-01-20
+publishedDate: 2024-01-21
 ---
 
 Nemo vel ad consectetur namut rutrum ex, venenatis sollicitudin urna. Aliquam erat volutpat. Integer eu ipsum sem. Ut bibendum lacus vestibulum maximus suscipit. Quisque vitae nibh iaculis neque blandit euismod.

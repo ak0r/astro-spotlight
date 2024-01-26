@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, Entry } from 'astro:content';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
@@ -8,14 +8,28 @@ import BlogCard from '@components/BlogCard.astro';
 import Pagination from '@components/Pagination.astro';
 
 export async function getStaticPaths ({ paginate }) {
-    const allBlogs: CollectionEntry<"blogs"> = (await getCollection("blogs"))
+  
+  const allPosts: CollectionEntry<"blogs"> = (await getCollection("blogs"))
       .sort((a:CollectionEntry<"blogs">, b:CollectionEntry<"blogs">) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
-    return paginate(allBlogs, { pageSize: 4, })
+    
+  const allCategories: string[] = [...new Set(allPosts.map((post) => post.data.category.toLowerCase()))];
+
+  return allCategories.flatMap((category) => {
+    const fileterdPosts: CollectionEntry<"blogs"> = allPosts.filter((post) => typeof post.data.category === 'string' && category === post.data.category.toLowerCase());
+  return paginate(
+    fileterdPosts, {
+      params: {category: category},
+      pageSize: 2,
+      props: { category },
+    });
+  });
 }
 
 const { page } = Astro.props;
+const params = Astro.params;
 
 ---
+
 <BaseLayout>
   <Container outerClass="mt-16 sm:mt-32">
     <PageTitle

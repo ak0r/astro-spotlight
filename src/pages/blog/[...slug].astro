@@ -1,7 +1,8 @@
 ---
 
-import { getCollection, getEntries, type CollectionEntry, getEntry  } from "astro:content";
-
+import { getCollection, type CollectionEntry  } from "astro:content";
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Container from '@components/Container.astro'
 import SinglePost from '@components/SinglePost.astro';
 
 export async function getStaticPaths () {
@@ -20,7 +21,10 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 ---
-
-<SinglePost frontMatter={entry.data}>
-    <Content />
-</SinglePost>
+<BaseLayout>
+    <Container outerClass="mt-16 sm:mt-32">
+        <SinglePost frontMatter={entry.data}>
+            <Content />
+        </SinglePost>
+    </Container>
+</BaseLayout>

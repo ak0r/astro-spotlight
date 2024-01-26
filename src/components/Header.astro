@@ -6,23 +6,21 @@ import ThemeToggle from './ThemeToggle.astro'
 import Avatar from './Avatar.astro'
 ---
 
-<header class="relative flex flex-col z-50">
-    <div class="top-0 z-10 h-16 pt-6 sticky" style="position: sticky">
-        <Container outerClass="top-0 w-full sticky">
-            <div class="relative flex gap-4">
-                <div class="flex flex-1">
-                    <Avatar />
-                </div>
-                <div class="flex flex-1 justify-end md:justify-center">
-                    <NavBar />
-                    <div class="md:hidden">
-                        <MobileNav client:visible/>
-                    </div>
-                </div>
-                <div class="flex justify-end md:flex-1">
-                    <ThemeToggle />
+<header class="flex sticky top-0 z-50 h-16">
+    <Container outerClass="pt-6 w-full">
+        <div class="relative flex gap-4">
+            <div class="flex flex-1">
+                <Avatar />
+            </div>
+            <div class="flex flex-1 justify-end md:justify-center">
+                <NavBar />
+                <div class="md:hidden">
+                    <MobileNav client:visible/>
                 </div>
             </div>
-        </Container>
-    </div>
+            <div class="flex justify-end md:flex-1">
+                <ThemeToggle />
+            </div>
+        </div>
+    </Container>
 </header>
