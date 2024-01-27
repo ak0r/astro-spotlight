@@ -1,0 +1,27 @@
+---
+import type { GetStaticPathsOptions, Page } from 'astro';
+import { getCollection } from 'astro:content';
+import { sortPostsByDate, filterPostsByStatus, getAllTags } from '@utils/blogFunctions'
+import { slugify } from '@utils/commonFunctions';
+import SectionTitle from '@components/SectionTitle.astro';
+
+const allPosts = await getCollection('blogs', filterPostsByStatus).then(sortPostsByDate);
+const tags = getAllTags(allPosts);
+
+---
+<SectionTitle 
+  title="All Tags"
+/>
+<div class="flex gap-4">
+  {
+    tags.map((tag) => 
+      <div class="space-x-2 text-xs font-medium">
+        <a href={`/blog/${slugify(tag.name)}`}>
+          <span class="inline-flex items-center p-2 text-zinc-500 bg-zinc-300/50 ring-1 ring-inset ring-gray-500/50 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-zinc-800/90 dark:border-gray-700 dark:text-zinc-400 dark:hover:bg-gray-700 dark:hover:text-white mb-4">
+            # {tag.name}
+          </span>
+        </a>
+      </div>
+    )
+  }
+</div>
