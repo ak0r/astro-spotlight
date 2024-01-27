@@ -1,12 +1,12 @@
 ---
-
 import { getCollection, type CollectionEntry  } from "astro:content";
+import { filterPostsByStatus } from '@utils/blogFunctions'
 import BaseLayout from '@layouts/BaseLayout.astro'
 import Container from '@components/Container.astro'
 import SinglePost from '@components/SinglePost.astro';
 
 export async function getStaticPaths () {
-    const allBlogs = await getCollection("blogs")    
+    const allBlogs = await getCollection("blogs", filterPostsByStatus)    
     return allBlogs.map((entry) => ({
         params: { slug: entry.slug },
         props: { entry }

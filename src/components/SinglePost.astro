@@ -1,7 +1,8 @@
 ---
-import MarkdownWrapper from "./MarkdownWrapper.astro"
 import { Image } from "astro:assets";
+import { slugify } from '@utils/commonFunctions';
 import BlogMeta from "./BlogMeta.astro";
+import MarkdownWrapper from "./MarkdownWrapper.astro"
 const { frontMatter } = Astro.props;
 ---
 <section class="mx-auto max-w-4xl">
@@ -21,10 +22,23 @@ const { frontMatter } = Astro.props;
         <h1 class="items-start mt-8 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
         
         <BlogMeta date={frontMatter.publishedDate} category={frontMatter.category} className="mt-4"/>
-        <div class="flex justify-center py-4">
+        <div class="flex flex-col py-4">
             <MarkdownWrapper className="mt-4 mb-4 max-w-3xl">
                 <slot />
             </MarkdownWrapper>
+            <div>
+                {
+                    frontMatter.tags.length > 0 && (
+                        <div class="flex flex-wrap mt-4 gap-x-5 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
+                            {frontMatter.tags.map((tag) => (
+                                <a class="text-main hover:underline" href={`/tag/${slugify(tag)}`}>
+                                    #{tag}
+                                </a>
+                            ))}
+                        </div>
+                    )
+                }
+            </div>
         </div>
         <BlogMeta date={frontMatter.publishedDate} category={frontMatter.category} className="mt-4"/>
     </article>
