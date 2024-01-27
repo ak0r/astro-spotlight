@@ -5,7 +5,7 @@ featuredImage: "https://picsum.photos/900/600?random=2.webp"
 category: "Category-2"
 tags: ["tag 1", "tag 3"]
 slug: "post-2"
-published: false
+published: true
 publishedDate: 2024-01-19
 ---
 

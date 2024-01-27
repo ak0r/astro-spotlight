@@ -1,20 +1,26 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+
+import type { GetStaticPathsOptions, Page } from 'astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { sortPostsByDate, filterPostsByStatus } from '@utils/blogFunctions'
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
-import BlogCard from '@components/BlogCard.astro';
+import BlogCard from "@components/BlogCard.astro";
 import Pagination from '@components/Pagination.astro';
 
-export async function getStaticPaths ({ paginate }) {
-    const allBlogs: CollectionEntry<"blogs"> = (await getCollection("blogs"))
-      .sort((a:CollectionEntry<"blogs">, b:CollectionEntry<"blogs">) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
-    return paginate(allBlogs, { pageSize: 4, })
+export async function getStaticPaths({paginate}: GetStaticPathsOptions) {
+    const posts = await getCollection('blogs', filterPostsByStatus).then(sortPostsByDate);
+    return paginate(posts, {
+      pageSize: 4
+    });
 }
 
-const { page } = Astro.props;
+type Props = { page: Page<CollectionEntry<'blogs'>> };
 
+const { page } = Astro.props;
+const allPosts = page.data;
 ---
 <BaseLayout>
   <Container outerClass="mt-16 sm:mt-32">
@@ -24,13 +30,18 @@ const { page } = Astro.props;
     />
     <div class="mt-16">
       <div class="flex flex-col gap-4">
-        <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
+        <div class="flex flex-col gap-4">
+          <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
           {
-            page.data.map((post) => <BlogCard singlePost={post} />)
+            allPosts.map((post) => (
+              <BlogCard singlePost={post} />
+              )
+            )
           }
+          </div>
         </div>
         <div class="flex flex-row justify-around">
-          <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
+          <Pagination page={page}/>
         </div>
       </div>
     </div>
