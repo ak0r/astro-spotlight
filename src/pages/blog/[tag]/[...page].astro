@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { sortPostsByDate, filterPostsByStatus, getPostsByCategory } from '@utils/blogFunctions'
+import { sortPostsByDate, filterPostsByStatus, getPostsByTag, getAllTags } from '@utils/blogFunctions'
 import { slugify } from '@utils/commonFunctions';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
@@ -13,22 +13,20 @@ import Pagination from '@components/Pagination.astro';
 export async function getStaticPaths ({ paginate }) {
   
   const allPosts = await getCollection('blogs', filterPostsByStatus).then(sortPostsByDate);
-    
-  const allCategories = [...new Set(allPosts.map((post) => post.data.category))];
+  const tags = getAllTags(allPosts);
 
-  return allCategories.flatMap((category) => {
-    // const fileterdPosts = allPosts.filter((post) => typeof post.data.category === 'string' && category === post.data.category.toLowerCase());
-    const filteredPosts = getPostsByCategory(allPosts, slugify(category));
+  return tags.flatMap((tag) => {
+    const filteredPosts = getPostsByTag(allPosts, tag.slug);
   return paginate(
     filteredPosts, {
-      params: {category: slugify(category)},
+      params: {tag: tag.slug},
       pageSize: 4,
-      props: { category },
+      props: { tag },
     });
   });
 }
 
-const { page, category } = Astro.props;
+const { page, tag } = Astro.props;
 const params = Astro.params;
 const allPosts = page.data;
 ---
@@ -36,7 +34,7 @@ const allPosts = page.data;
 <BaseLayout>
   <Container outerClass="mt-16 sm:mt-32">
     <PageTitle
-      title={category}
+      title={tag.name}
       intro="All of my thoughts on programming, building products, leadership, travelling, whisky, and other random stuff. Not structured."
     />
     <div class="mt-16">

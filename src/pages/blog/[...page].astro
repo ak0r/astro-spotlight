@@ -1,5 +1,4 @@
 ---
-
 import type { GetStaticPathsOptions, Page } from 'astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import { sortPostsByDate, filterPostsByStatus } from '@utils/blogFunctions'
@@ -9,6 +8,9 @@ import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
 import BlogCard from "@components/BlogCard.astro";
 import Pagination from '@components/Pagination.astro';
+import CategoryList from '@components/CategoryList.astro';
+import TagList from '@components/TagList.astro';
+
 
 export async function getStaticPaths({paginate}: GetStaticPathsOptions) {
     const posts = await getCollection('blogs', filterPostsByStatus).then(sortPostsByDate);
@@ -25,13 +27,16 @@ const allPosts = page.data;
 <BaseLayout>
   <Container outerClass="mt-16 sm:mt-32">
     <PageTitle
-      title="Travel experiences and tips"
-      intro="All of my thoughts on programming, building products, leadership, travelling, whisky, and other random stuff. Not structured."
+      title="Articles"
+      intro="All of my thoughts and experiences in travelling, programming, and other random stuff. Not structured."
     />
     <div class="mt-16">
       <div class="flex flex-col gap-4">
-        <div class="flex flex-col gap-4">
-          <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
+
+        <!-- <CategoryList />
+        <TagList /> -->
+
+        <div class="grid mt-8 md:grid-cols-2 lg:grid-cols-2">
           {
             allPosts.map((post) => (
               <BlogCard singlePost={post} />
@@ -39,7 +44,6 @@ const allPosts = page.data;
             )
           }
           </div>
-        </div>
         <div class="flex flex-row justify-around">
           <Pagination page={page}/>
         </div>
