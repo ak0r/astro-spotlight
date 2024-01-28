@@ -11,8 +11,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily:{
-				primary: ["Inter Variable", "Inter", ...defaultTheme.fontFamily.sans],
-				secondary: ["Josefin Sans Variable", "Josefin", ...defaultTheme.fontFamily.sans]
+				primary: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+				secondary: ["var(--font-josefin)", ...defaultTheme.fontFamily.sans]
 			}
 		},
 	},
