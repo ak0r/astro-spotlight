@@ -1,7 +1,6 @@
 ---
-import '@fontsource-variable/inter'
-import '@fontsource-variable/josefin-sans'
 import '@styles/base.css'
+import { AstroFont } from 'astro-font';
 import { ViewTransitions } from "astro:transitions";
 ---
 
@@ -12,3 +11,25 @@ import { ViewTransitions } from "astro:transitions";
 <meta name="generator" content={Astro.generator} />
 <title>Astro</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+<AstroFont
+  config={[
+    {
+      src: [],
+      name: "Inter",
+      preload: false,
+      display: "swap",
+      fallback: "sans-serif",
+      cssVariable: "font-inter",
+      googleFontsURL: 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900',
+    },
+    {
+      src: [],
+      name: "Inter",
+      preload: false,
+      display: "swap",
+      fallback: "sans-serif",
+      cssVariable: "font-josefin",
+      googleFontsURL: 'https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700',
+    },
+  ]}
+/>
