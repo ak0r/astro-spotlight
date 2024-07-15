@@ -1,26 +1,24 @@
 ---
-import Container from './Container.astro'
-import NavBar from './DeskNav.astro'
-import MobileNav from './MobileNav'
-import ThemeToggle from './ThemeToggle.astro'
-import Avatar from './Avatar.astro'
+import Container from "@components/Container.astro";
+import NavBar from "@components/NavBar.astro";
+import ThemeToggle from './ThemeToggle.astro';
+import BrandLogo from "./BrandLogo.astro";
+
+import { cn } from "@/utils/commonFunctions";
 ---
 
-<header class="flex sticky top-0 z-50 h-16">
-    <Container outerClass="pt-6 w-full">
-        <div class="relative flex gap-4">
-            <div class="flex flex-1">
-                <Avatar />
-            </div>
-            <div class="flex flex-1 justify-end md:justify-center">
-                <NavBar />
-                <div class="md:hidden">
-                    <MobileNav client:visible/>
-                </div>
-            </div>
-            <div class="flex justify-end md:flex-1">
-                <ThemeToggle />
-            </div>
-        </div>
-    </Container>
+<header class="flex sticky top-0 z-50 h-20 backdrop-blur md:backdrop-blur-none">
+  <Container outerClass="py-5 w-full">
+    <div class="relative flex gap-4 items-center">
+      <div class="flex flex-1">
+        <BrandLogo />
+      </div>
+      <div class="flex flex-1 justify-end sm:justify-center">
+        <NavBar />
+      </div>
+      <div class="flex justify-end sm:flex-1">
+        <ThemeToggle />
+      </div>
+    </div>
+  </Container>
 </header>

@@ -1,28 +1,21 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro'
-import Container from '@components/Container.astro'
-import PageTitle from '@components/PageTitle.astro'
-import { Image } from 'astro:assets'
-import data from '@configs/siteConfig.json'
-import social from '@configs/socialLinks.json'
-import SocialLinks from '@components/SocialLinks.astro';
+import Container from "@/components/Container.astro";
+import PageTitle from "@/components/PageTitle.astro";
+import SocialLinks from "@/components/SocialLinks.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+import { SocialMedia } from '@configs/configs'
 ---
+
 <BaseLayout>
-	<Container outerClass="mt-16 sm:mt-32">
-		<div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
-			<div class="lg:pl-20">
-				<div class="max-w-xs px-2.5 lg:max-w-none">
-					<Image
-						src={data.site.avatarImage}
-                        height={300}
-						width={300}
-						alt=""
-						sizes="(min-width: 1024px) 32rem, 20rem"
-						class="rounded-2xl aspect-square rotate-3 object-cover"
-					/>
-				</div>
-			</div>
-			<div class="lg:order-first lg:row-span-2">
+  <Container outerClass="mt-12 sm:mt-24">
+    <div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+      <div class="lg:pl-20">
+        <div class="max-w-xs px-2.5 lg:max-w-none">
+
+        </div>
+      </div>
+      <div class="lg:order-first lg:row-span-2">
 				<PageTitle title={"Hi, I'm John Doe."} />
 				<div class="mt-6 text-base">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -34,9 +27,9 @@ import SocialLinks from '@components/SocialLinks.astro';
 					sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
 				</div>
 				<div class="mt-6 flex gap-6">
-					<SocialLinks source={social.main} className="social-icons"></SocialLinks>
+					<SocialLinks source={SocialMedia} className="social-icons"></SocialLinks>
 				</div>
 			</div>
-		</div>
-	</Container>
+    </div>
+  </Container>
 </BaseLayout>

@@ -1,0 +1,52 @@
+---
+import { cn } from "@utils/commonFunctions";
+
+type Props = {
+  href: string;
+  external?: boolean;
+  className?: string;
+  underline?: boolean;
+  group?: boolean;
+  isCard?: boolean;
+};
+
+const {
+  href,
+  external,
+  underline = false,
+  group = false,
+  className = "",
+  isCard = true,
+  ...rest
+} = Astro.props;
+---
+{
+  isCard ? (
+  <a
+    href={href}
+    target={external ? "_blank" : "_self"}
+    class={cn(
+      "flex items-start rounded-lg hover:bg-black/5 hover:text-black dark:hover:bg-white/5 dark:hover:text-white transition-all duration-300 ease-in-out",
+      group && "group",
+      className
+    )}
+    {...rest}
+  >
+    <slot />
+  </a>
+  ) : (
+  <a
+    href={href}
+    target={external ? "_blank" : "_self"}
+    class={cn(
+      "inline-flex justify-center align-middle hover:text-orange-500 dark:hover:text-orange-500 transition-colors duration-300 ease-in-out",
+      underline && "underline underline-offset-[3px]",
+      group && "group",
+      className
+    )}
+    {...rest}
+  >
+    <slot />
+  </a>
+  )
+}

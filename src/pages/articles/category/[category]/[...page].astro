@@ -1,0 +1,83 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Container from '@components/Container.astro';
+import PageTitle from '@components/PageTitle.astro';
+import Paginator from '@/components/blog/Paginator.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+
+import { getAllPosts, sortPostsByDate, getPostsByCategory } from '@/utils/blogFunctions';
+import { slugify } from "@/utils/commonFunctions";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+	const MAX_POSTS_PER_PAGE = 6;
+	const allPosts = await getAllPosts();
+	const allPostsByDate = sortPostsByDate(allPosts);
+  const allCategories = [...new Set(allPostsByDate.map((post) => post.data.category))];
+
+  return allCategories.flatMap((category) => {
+    const filteredPosts = getPostsByCategory(allPosts, slugify(category));
+    return paginate(filteredPosts, {
+			pageSize: MAX_POSTS_PER_PAGE,
+			params: { category: slugify(category) },
+      props: { category }
+		});
+  });
+};
+
+interface Props {
+	page: Page<CollectionEntry<"articles">>;
+}
+
+const { page, category } = Astro.props;
+const { params } = Astro.params;
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: `← Previous Categories`,
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: `Next Categories →`,
+			url: page.url.next,
+		},
+	}),
+};
+
+const pageTitle = {
+	title: `${category}`,
+  desc: `All posts in the category - ${category}`,
+};
+
+---
+
+<BaseLayout>
+  <Container outerClass="mt-12 sm:mt-24">
+    <PageTitle
+      title={pageTitle.title}
+      desc={pageTitle.desc}
+    />
+    <div class="mt-16">
+      <div class="flex flex-col gap-4 max-w-2xl mx-auto">
+        <div>
+          <!-- Blog List -->
+          <ul class="w-full space-y-4 my-6">
+          {
+              page.data.map((p) => (
+                <BlogCard singlePost={p} />
+              ))
+          }
+          </ul>
+        </div>
+        <div class="flex flex-row justify-around">
+          <Paginator {...paginationProps} />
+        </div>
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

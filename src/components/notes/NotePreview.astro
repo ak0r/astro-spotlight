@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getPostSortDate } from '@/utils/blogFunctions';
+import { getFormattedDate, slugify } from "@/utils/commonFunctions";
+
+type Props = {
+    singlePost: CollectionEntry<"articles">;
+}
+
+const { singlePost } = Astro.props;
+const postDate = getPostSortDate(singlePost);
+const formattedDate = getFormattedDate(postDate);
+const postCollection = singlePost.collection;
+const postURL = singlePost.collection + "/" + slugify(singlePost.slug);
+---
+<article class="group relative flex flex-col items-start mb-4">
+  <h2 class="text-balance text-xl font-bold tracking-tight">
+    <div class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-neutral-300/50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-neutral-800/50"></div>
+    <a href={`/${postURL}`}>
+      <span class="absolute -inset-x-4 -inset-y-6 z-20 sm:-inset-x-6 sm:rounded-2xl"></span>
+      <span class="relative z-10">{singlePost.data.title}</span>
+    </a>
+  </h2>
+  <time class="relative z-10 order-first mb-3 flex items-center text-sm text-neutral-500 dark:text-neutral-500 pl-3.5">
+    <span class="absolute inset-y-0 left-0 flex items-center" aria-hidden="true">
+      <span class="h-4 w-0.5 rounded-full bg-neutral-400 dark:bg-neutral-500"></span>
+    </span>
+    {formattedDate}
+  </time>
+  <p class="relative z-10 mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+    {singlePost.data.excerpt}
+  </p>
+  <div aria-hidden="true" class="relative z-10 mt-4 flex items-center text-sm font-medium text-orange-500">
+    Read post →
+  </div>
+</article>

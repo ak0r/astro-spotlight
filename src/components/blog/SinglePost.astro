@@ -1,0 +1,50 @@
+---
+import { Image, Picture } from "astro:assets";
+import { slugify } from '@utils/commonFunctions';
+import BlogMeta from "./BlogMeta.astro";
+import MDWrapper from "./MDWrapper.astro"
+import Link from "../Link.astro";
+
+const { frontMatter, readTime, collection } = Astro.props;
+---
+<section class="mx-auto max-w-4xl">
+    <article class="flex flex-col">
+        <Image 
+            src={frontMatter.featuredImage}
+            alt={frontMatter.title}
+            class="rounded-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5  dark:ring-white/10"
+            sizes={`(max-width: 360px) 240px, (max-width: 720px) 640px, (max-width: 1600px) 900px`}
+            widths={[240, 540, 720]}
+            width={900}
+            height={600}
+            format='webp'
+            loading="lazy"
+        />
+        
+        <h1 class="items-start mt-8 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">{frontMatter.title}</h1>
+        
+        <BlogMeta pubDate={frontMatter.publishedDate} category={frontMatter.category} className="mt-4" readTime={readTime}/>
+
+        <div class="flex flex-col py-4">
+            <MDWrapper className="mt-4 mb-4 max-w-3xl">
+                <slot />
+            </MDWrapper>
+            <div class="flex">
+                <span class="mt-8 pt-4 font-bold text-xl">Article Tags</span>
+            </div>
+        </div>
+        <div class="flex">
+            {
+                frontMatter.tags.length > 0 && (
+                    <div class="flex flex-wrap mt-4 gap-x-5 gap-y-1 text-sm text-zinc-500 dark:text-zinc-400">
+                        {frontMatter.tags.map((tag: string) => (
+                            <Link href={`/${collection}/tag/${slugify(tag)}`} className="text-main hover:underline" isCard={false}>
+                                #{tag}
+                            </Link>
+                        ))}
+                    </div>
+                )
+            }
+        </div>
+    </article>
+</section>

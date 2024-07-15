@@ -1,0 +1,65 @@
+---
+import { getCollection, type CollectionEntry  } from "astro:content";
+import BaseLayout from '@layouts/BaseLayout.astro'
+import Container from '@components/Container.astro'
+import SinglePost from '@components/blog/SinglePost.astro';
+import PostNavigation from '@components/blog/PostNavigation.astro';
+import BackToPrev from '@/components/BackToPrev.astro';
+import { readingTime } from '@utils/commonFunctions'
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("articles"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"articles">;
+
+const posts = (await getCollection("articles"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+
+function getNextPost() {
+  let postIndex;
+  for (const post of posts) {
+    if (post.slug === Astro.params.slug) {
+      postIndex = posts.indexOf(post);
+      return posts[postIndex + 1];
+    }
+  }
+}
+
+function getPrevPost() {
+  let postIndex;
+  for (const post of posts) {
+    if (post.slug === Astro.params.slug) {
+      postIndex = posts.indexOf(post);
+      return posts[postIndex - 1];
+    }
+  }
+}
+
+const nextPost = getNextPost();
+const prevPost = getPrevPost();
+
+const post = Astro.props;
+const { Content, headings } = await post.render();
+const collection = post.collection;
+
+---
+<BaseLayout>
+    <Container outerClass="mx-auto max-w-4xl mt-12 sm:mt-24">
+        <section class="animate my-10">
+          <BackToPrev href={`/${collection}`}> All {collection} </BackToPrev>
+        </section>
+        <SinglePost frontMatter={post.data} readTime={readingTime(post.body)} collection={collection}>
+            <Content />
+        </SinglePost>
+        <section class="mt-10 max-w-4xl mx-auto">
+          <PostNavigation prevPost={prevPost} nextPost={nextPost}/>
+        </section>
+    </Container>
+</BaseLayout>

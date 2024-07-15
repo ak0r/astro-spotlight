@@ -1,0 +1,67 @@
+---
+import { HeaderLinks } from '@configs/configs'
+import Link from './Link.astro';
+import { cn } from "@/utils/commonFunctions";
+---
+
+<!-- Widescreen navigation bar -->
+<div class="hidden sm:flex">
+  <ul class="flex overflow-hidden space-x-3 px-6 rounded-full text-sm font-medium backdrop-blur bg-neutral-300/50 dark:bg-neutral-800/50">
+    {
+      HeaderLinks.map((link) => {
+        return (
+          <li>
+            <Link href={link.url} className='px-3 py-2 rounded-lg font-bold' isCard={false}>
+            {link.title}
+            </Link>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>
+
+<!-- Mobile menu button-->
+<button id="header-drawer-button" aria-label={`Toggle drawer open and closed`} class={cn("flex md:hidden", "size-9 rounded-full p-2 items-center justify-center", "bg-transparent hover:bg-black/5 dark:hover:bg-white/20", "stroke-current hover:stroke-black hover:dark:stroke-white", "border border-black/10 dark:border-white/25", "transition-colors duration-300 ease-in-out")}>
+  <svg id="drawer-open" class="size-full">
+    <use href="/ui.svg#menu"></use>
+  </svg>
+  <svg id="drawer-close" class="size-full">
+    <use href="/ui.svg#x"></use>
+  </svg>
+</button>
+
+<style>
+  #header-drawer-button > #drawer-open {
+    @apply block;
+  }
+
+  #header-drawer-button > #drawer-close {
+    @apply hidden;
+  }
+
+  #header-drawer-button.open > #drawer-open {
+    @apply hidden;
+  }
+
+  #header-drawer-button.open > #drawer-close {
+    @apply block;
+  }
+</style>
+
+<script is:inline>
+  function toggleDrawer() {
+    const drawer = document.getElementById("drawer")
+    const drawerButton = document.getElementById("header-drawer-button")
+    drawer?.classList.toggle("open")
+    drawerButton?.classList.toggle("open")
+  }
+
+  function initializeDrawerButton() {
+    const drawerButton = document.getElementById("header-drawer-button")
+    drawerButton?.addEventListener("click", toggleDrawer)
+  }
+
+  document.addEventListener("astro:after-swap", initializeDrawerButton)
+  initializeDrawerButton()
+</script>

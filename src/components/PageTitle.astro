@@ -1,10 +1,10 @@
 ---
-const { title = "", intro="" } = Astro.props;
+const { title = "", desc = "" } = Astro.props;
 ---
 
-<section>
-    <div class="max-w-3xl">
-      <h2 class="text-6xl font-bold tracking-light md:text-balance">{title}</h2>
-      <p class="mt-6 text-base text-balance">{intro}</p>
+<section class="max-w-3xl">
+    <div class="flex flex-col">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-5xl md:text-balance">{title}</h2>
+      <span class="text-base mt-6 text-balance text-neutral-600 dark:text-neutral-400">{desc}</span>
     </div>
 </section>

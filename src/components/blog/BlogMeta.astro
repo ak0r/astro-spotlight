@@ -1,0 +1,22 @@
+---
+import { slugify, getFormattedDate } from '@utils/commonFunctions'
+import Link from '@components/Link.astro'
+
+interface Props {
+	pubDate: Date;
+    category: string;
+    className: string;
+    readTime: string;
+}
+
+const { pubDate, category, className, readTime } = Astro.props;
+---
+<div class:list={["space-x-2 text-xs font-medium", className]}>
+    <!-- <Link href={`/articles/${slugify(category)}/`} className='w-fit inline-flex flex-nowrap p-3 ring-1 ring-neutral-500/50' isCard group>
+      {category}
+    </Link> -->
+    <span class="text-zinc-500">|</span>
+    <span class=" text-zinc-500 dark:text-zinc-400"> {getFormattedDate(pubDate)}</span>
+    <span class="text-zinc-500">|</span>
+    <span class=" text-zinc-500 dark:text-zinc-400"> {readTime}</span>
+</div>

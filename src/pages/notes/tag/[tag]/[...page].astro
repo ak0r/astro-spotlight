@@ -1,0 +1,113 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Container from '@components/Container.astro';
+import PageTitle from '@components/PageTitle.astro';
+import Paginator from '@/components/blog/Paginator.astro';
+import NoteList from '@/components/notes/NoteList.astro';
+import NewsletterCard from '@/components/NewsletterCard.astro';
+import TagsCard from '@components/TagsCard.astro'
+
+import { getAllPosts, getUniqueTags, groupPostsByYear, sortPostsByDate } from '@/utils/blogFunctions';
+
+import { slugify } from "@/utils/commonFunctions";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+	const MAX_POSTS_PER_PAGE = 25;
+	const allPosts = await getAllPosts();
+	const allPostsByDate = sortPostsByDate(allPosts);
+	const uniqueTags = getUniqueTags(allPostsByDate);
+
+  return uniqueTags.flatMap((tag) => {
+    const filterPosts = allPostsByDate.filter((post) => post.data.tags.includes(tag));
+    return paginate(filterPosts, {
+			pageSize: MAX_POSTS_PER_PAGE,
+      params: { tag: slugify(tag) },
+      props: { tag }
+		});
+  });
+};
+
+interface Props {
+	page: Page<CollectionEntry<"articles">>;
+}
+
+const { page, tag } = Astro.props;
+const { params } = Astro.params;
+const groupedByYear = groupPostsByYear(page.data);
+const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: `← Previous`,
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: `Next →`,
+			url: page.url.next,
+		},
+	}),
+};
+
+const pageTitle = {
+	title: `${tag}`,
+  desc: `All posts with the tag - ${tag}`,
+};
+---
+
+<BaseLayout>
+  <Container outerClass="mt-12 sm:mt-24">
+    <PageTitle
+      title={pageTitle.title}
+      desc={pageTitle.desc}
+    />
+
+    <div class="mt-16 sm:mt-20">
+      <div class="mx-auto grid max-w-xl grid-cols-1 gap-y-10 lg:gap-y-20 lg:grid-cols-2 lg:max-w-none">
+        <div class="flex flex-col order-first gap-12">
+          <div class="card-base p-2">
+          {
+            descYearKeys.map((yearKey) => (
+              <div class="pb-3">
+                <div class="flex flex-row w-full items-center h-[3.75rem]">
+                  <div class="w-[15%] md:w-[10%] transition text-right text-md">
+                    {yearKey}
+                  </div>
+                  <div class="mx-auto relative flex w-[15%] md:w-[10%] flex-none items-center justify-center"> 
+                    <div class="h-2 w-2 rounded-full bg-neutral-400 dark:bg-neutral-500">
+                    </div> 
+                  </div>
+                  <div class="w-[70%] md:w-[80%] transition text-left text-md text-muted-foreground"> 
+                    {
+                      groupedByYear[yearKey]?.length + " articles"
+                    }
+                  </div>
+                </div>
+                {
+                  groupedByYear[yearKey]?.map((p) => (
+                    <NoteList singlePost={p} />
+                  ))
+                }
+              </div>
+            ))
+          }
+          </div>
+        </div>
+        <div class="flex w-[100%] lg:ml-auto sm:space-y-6 lg:pl-16 xl:pl-24 order-last">
+          <TagsCard />
+          <!-- <NewsletterCard /> -->
+        </div>
+        <div class="flex flex-row sm:order-last justify-around">
+          <Paginator {...paginationProps} />
+        </div>
+      </div>
+    </div>
+  </Container>
+</BaseLayout>
+
+

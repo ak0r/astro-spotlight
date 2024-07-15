@@ -1,9 +1,48 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro'
-import Container from '@components/Container.astro'
+import type { GetStaticPathsOptions, Page } from 'astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+import { getAllPosts, sortPostsByDate } from '@/utils/blogFunctions';
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/Container.astro";
+import PageTitle from "@/components/PageTitle.astro";
+import SocialLinks from "@components/SocialLinks.astro"
+import Link from "@components/Link.astro"
+import NotePreview from '@/components/notes/NotePreview.astro';
+import NewsletterCard from '@/components/NewsletterCard.astro';
+import { SocialMedia } from '@configs/configs'
+
+
+const MAX_POSTS = 3;
+const allPosts = await getAllPosts();
+const allPostsByDate = sortPostsByDate(allPosts).slice(0, MAX_POSTS);
+
 ---
+
 <BaseLayout>
-	<Container outerClass="mt-16 sm:mt-32">
-		<h1>Astro</h1>
+	<Container outerClass="mt-12 sm:mt-24">
+		<div class="max-w-2xl">
+			<PageTitle title="Amit K" desc="While I started out in software engineering, I've realized my true passion lies in bringing ideas to life. Let's connect!"/>
+			<div class="mt-6 flex gap-6">
+				<SocialLinks source={SocialMedia} className="social-icons" />
+			</div>
+		</div>
+	</Container>
+	<Container outerClass="mt-12 sm:mt-24">
+		<div class="mt-16 sm:mt-20">
+			<div class="mx-auto grid max-w-xl grid-cols-1 gap-y-10 lg:gap-y-20 lg:grid-cols-2 lg:max-w-none">
+				<div class="flex flex-col order-first gap-12">
+					{
+						allPostsByDate.map((p) => (
+							<NotePreview singlePost={p} />
+						))
+					}
+				</div>
+				<div class="lg:ml-auto sm:space-y-6 lg:pl-16 xl:pl-24 order-last">
+					<NewsletterCard />
+				</div>
+			</div>
+		</div>
 	</Container>
 </BaseLayout>

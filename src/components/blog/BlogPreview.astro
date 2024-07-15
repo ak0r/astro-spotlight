@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import { getPostSortDate } from '@/utils/blogFunctions';
+import { getFormattedDate, slugify } from "@/utils/commonFunctions";
+
+import Link from '@components/Link.astro'
+
+type Props = {
+    singlePost: CollectionEntry<"articles">;
+}
+
+const { singlePost } = Astro.props;
+const postDate = getPostSortDate(singlePost);
+const formattedDate = getFormattedDate(postDate);
+
+const postURL = singlePost.collection + "/" + slugify(singlePost.slug);
+---
+
+<article>
+  <Link href={`/${postURL}`} className="flex-col p-4 gap-1" isCard>
+    <time class="relative order-first flex items-center text-sm text-neutral-500 dark:text-neutral-500 pl-3.5">
+      <span class="absolute left-0 flex items-center" aria-hidden="true">
+        <span class="h-4 w-0.5 rounded-full bg-neutral-400 dark:bg-neutral-500"></span>
+      </span>
+      {formattedDate}
+    </time>
+    <span class="text-balance text-lg font-bold py-2">
+      {singlePost.data.title}
+    </span>
+    <p class="relative text-md text-neutral-600 dark:text-neutral-400">
+      {singlePost.data.excerpt}
+    </p>
+    <div aria-hidden="true" class="relative mt-2 flex items-center text-sm text-orange-500">
+      Read post →
+    </div>
+  </Link>
+</article>

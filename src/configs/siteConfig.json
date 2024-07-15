@@ -1,9 +1,0 @@
-{
-    "site": {
-        "siteTitle": "John Doe",
-        "siteDescription": "This is site description",
-        "baseURL": "htps://example.com",
-        "basePath": "/",
-        "avatarImage": "/images/avatar.png"
-    }
-}

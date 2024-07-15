@@ -1,28 +1,26 @@
 ---
-import navConfig from '@configs/navConfig.json'
-import Container from "./Container.astro"
+import Container from "./Container.astro";
+import { FooterLinks } from '@configs/configs'
+import Link from "./Link.astro";
 ---
+
 <footer class="mt-16 pb-10">
-	<Container>
-		<div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+  <Container>
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
 			<div class="flex gap-6 text-sm font-medium ">
-				{
-					navConfig.footerNav.map((page) => {
-					  return (
-						<a
-							href={page.url}
-							class="relative block px-3 py-2 transition hover:text-primary"
-							aria-current="page"
-						>
-							{page.title}
-						</a>
-					  );
-					})
-				  }
-			</div>
-			<p class="text-sm text-zinc-400 dark:text-zinc-500">
-				&copy; {new Date().getFullYear()} John Doe. All rights reserved.
-			</p>
-		</div>
-	</Container>
+        {
+          FooterLinks.map((link) => {
+            return (
+            <Link href={link.url} className='px-3 py-2' isCard={false}>
+              {link.title}
+            </Link>
+            );
+          })
+        }
+      </div>
+      <p class="text-sm text-neutral-400 dark:text-neutral-500">
+        &copy; {new Date().getFullYear()} John Doe. All rights reserved.
+      </p>
+    </div>
+  </Container>
 </footer>
