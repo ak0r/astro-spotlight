@@ -20,6 +20,7 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@iconify-json/fa6-brands": "^1.1.19",
     "@iconify-json/mdi": "^1.1.67",
     "@tailwindcss/typography": "^0.5.13"
