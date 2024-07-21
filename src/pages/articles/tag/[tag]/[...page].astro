@@ -5,7 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
-import Paginator from '@/components/blog/Paginator.astro';
+import Paginator from '@/components/Paginator.astro';
 import BlogList from '@/components/blog/BlogList.astro';
 import TagsCard from '@components/TagsCard.astro'
 
@@ -41,13 +41,13 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
-			text: `← Previous`,
+			text: "← Previous",
 			url: page.url.prev,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
-			text: `Next →`,
+			text: "Next →",
 			url: page.url.next,
 		},
 	}),
@@ -55,7 +55,7 @@ const paginationProps = {
 
 const pageTitle = {
 	title: `${tag}`,
-  desc: `All posts with the tag - ${tag}`,
+  desc: `All articles related to the #${tag} topic`,
 };
 ---
 

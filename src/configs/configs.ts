@@ -10,8 +10,8 @@ export const SiteMeta = {
 
 export const HeaderLinks: NavLinks = [
   { title: "Articles", url: "/articles", },
-  { title: "Projects", url: "/projects", },
-  { title: "Notes", url: "/notes", },
+  { title: "Gallery", url: "/gallery", },
+  // { title: "Notes", url: "/notes", },
   { title: "About", url: "/about", },
 ];
 

@@ -5,7 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
-import Paginator from '@/components/blog/Paginator.astro';
+import Paginator from '@/components/Paginator.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
 
 import { getAllPosts, sortPostsByDate, getPostsByCategory } from '@/utils/blogFunctions';
@@ -37,13 +37,13 @@ const { params } = Astro.params;
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
-			text: `← Previous Categories`,
+			text: "← Previous Categories",
 			url: page.url.prev,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
-			text: `Next Categories →`,
+			text: "Next Categories →",
 			url: page.url.next,
 		},
 	}),

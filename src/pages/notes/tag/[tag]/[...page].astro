@@ -5,7 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
-import Paginator from '@/components/blog/Paginator.astro';
+import Paginator from '@/components/Paginator.astro';
 import NoteList from '@/components/notes/NoteList.astro';
 import NewsletterCard from '@/components/NewsletterCard.astro';
 import TagsCard from '@components/TagsCard.astro'
@@ -42,13 +42,13 @@ const descYearKeys = Object.keys(groupedByYear).sort((a, b) => +b - +a);
 const paginationProps = {
 	...(page.url.prev && {
 		prevUrl: {
-			text: `← Previous`,
+			text: "← Previous",
 			url: page.url.prev,
 		},
 	}),
 	...(page.url.next && {
 		nextUrl: {
-			text: `Next →`,
+			text: "Next →",
 			url: page.url.next,
 		},
 	}),

@@ -17,12 +17,14 @@ import MobileDrawer from "@/components/MobileDrawer.astro"
   <head>
     <Head />
   </head>
-  <body class="flex flex-col min-h-screen break-words leading-6 transition-colors duration-500 ease-in-out bg-neutral-200 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
-    <Header />
-    <MobileDrawer />
-    <main>
-      <slot />
-    </main>
-    <Footer />
+  <body class="break-words leading-6 transition-colors duration-500 ease-in-out bg-neutral-200 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
+    <div class="flex flex-col min-h-screen">
+      <Header />
+      <MobileDrawer />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
