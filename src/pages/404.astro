@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/Container.astro";
+import PageTitle from "@/components/PageTitle.astro";
+import SocialLinks from "@components/SocialLinks.astro"
+import LinkMod from "@/components/LinkMod.astro"
+import NewsletterCard from '@/components/NewsletterCard.astro';
+import { SocialMedia } from '@configs/configs'
+
+---
+
+<BaseLayout>
+	<Container outerClass="mt-12 sm:mt-24">
+		<div class="max-w-2xl">
+			<PageTitle title="404: Oops! Looks like you took a wrong turn!" desc="We're as lost as a tourist without a map."/>
+			<!-- <div class="mt-6 flex gap-6">
+				<SocialLinks source={SocialMedia} className="social-icons" />
+			</div> -->
+		</div>
+	</Container>
+	<Container outerClass="mt-12 sm:mt-24">
+		<div class="mt-16 sm:mt-20">
+			<div class="mx-auto grid max-w-xl grid-cols-1 gap-y-10 lg:gap-y-20 lg:grid-cols-2 lg:max-w-none">
+				<div class="flex flex-col order-first gap-12">
+          <h2 class="text-2xl">
+						But don’t worry, even the best travelers get lost sometimes. 🗺️
+					</h2>
+          <span class="text-md">
+            While you're here:
+          </span>
+          <div class="flex flex-col gap-3">
+            <LinkMod href={`/`} className="p-4" isCard>
+              Check your compass and head back to the home page.
+            </LinkMod>
+            <LinkMod href={`/articles`} className="p-4" isCard>
+              Explore our latest travel adventures on the Articles page.
+            </LinkMod>
+            <LinkMod href={`/`} className="p-4" isCard>
+              Find your way with our travel tips.
+            </LinkMod>
+          </div>
+
+          <span class="text-lg">
+            Remember, not all those who wander are lost, but you might be! Happy travels! 🌍✈️
+          </span>
+				</div>
+				<div class="lg:ml-auto sm:space-y-6 lg:pl-16 xl:pl-24 order-last">
+					<NewsletterCard />
+				</div>
+			</div>
+		</div>
+	</Container>
+</BaseLayout>
