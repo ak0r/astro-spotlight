@@ -14,7 +14,8 @@ const { singlePost } = Astro.props;
 const postDate = getPostSortDate(singlePost);
 const formattedDate = getFormattedDate(postDate);
 
-const postURL = singlePost.collection + "/" + slugify(singlePost.slug);
+// const postURL = singlePost.collection + "/" + slugify(singlePost.slug);
+const postURL = `${singlePost.collection}/${slugify(singlePost.slug)}`;
 ---
 
 <article>
