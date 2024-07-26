@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Container from '@components/Container.astro';
+import PageTitle from '@components/PageTitle.astro';
+import GalleryPreview from '@/components/gallery/GalleryPreview.astro';
+import { GalleryMeta } from '@/configs/configs';
+
+const allGalleries = (await getCollection("galleries"))
+  .filter((gallery) => !gallery.data.draft)
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+
+const pageTitle = {
+	title: `${GalleryMeta.title}`,
+  desc: `${GalleryMeta.description}`,
+};
+
+---
+<BaseLayout>
+  <Container outerClass="mt-12 sm:mt-24">
+    <PageTitle
+      title={pageTitle.title}
+      desc={pageTitle.desc}
+    />
+    <div class="mt-16 sm:mt-20">
+      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        {
+          allGalleries.map((gallery) => (
+            <GalleryPreview singleGallery={gallery} />
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

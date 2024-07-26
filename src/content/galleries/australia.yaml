@@ -1,0 +1,7 @@
+title: Australia
+description: "Sample gallery to showcase gallery content collection"
+featuredImage: "./australia/cover.jpg"
+gallerySource: "./australia/"
+tags: [australia, travel]
+draft: false
+publishedDate: 2023-01-01

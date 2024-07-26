@@ -1,0 +1,36 @@
+---
+import { Picture } from "astro:assets";
+import { slugify } from '@utils/commonFunctions';
+import type { CollectionEntry } from "astro:content";
+
+import Link from '@/components/LinkMod.astro'
+
+type Props = {
+    singleGallery: CollectionEntry<"galleries">;
+}
+
+const { singleGallery } = Astro.props;
+---
+
+<article>
+  <Link href={`/${singleGallery.collection}/${slugify(singleGallery.id)}`} className="group transition-all mb-4 block" isCard>
+    <Picture
+      src={singleGallery.data.featuredImage}
+      alt={singleGallery.data.title}
+      sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px`}
+      widths={[240, 540, 720]}
+      width={900}
+      height={600}
+      loading="lazy"
+      format=['avif', 'webp', 'jpeg']
+      class:list={[
+        "rounded-lg transition-all",
+        "group-hover:shadow-lg group-hover:opacity-90"
+      ]}
+    />
+    <div class="py-6 text-center text-balance text-neutral-600 dark:text-neutral-400">
+      <div class="text-xl tracking-tight">{singleGallery.data.title}</div>
+      <span class="text-sm">{singleGallery.data.description}</span>
+    </div>
+  </Link>
+</article>

@@ -1,3 +1,4 @@
+import { imageConfig } from "astro:assets";
 import { defineCollection, z } from "astro:content";
 
 function removeDupsAndLowerCase(array: string[]) {
@@ -14,19 +15,20 @@ const articleCollection = defineCollection({
       excerpt: z.string().default(""),
       featuredImage: z.string().default("/images/placeholder.png"),
       category: z.string().default("Undefined"),
-      tags: z.array(z.string()).default(["Undefined"]),
+      tags: z.array(z.string()).default(["Undefined"]).transform(removeDupsAndLowerCase),
       draft: z.boolean().default(false),
       publishedDate: z.date(),
   })
 });
 
-const projectCollection = defineCollection({
-  type: "content",
-  schema: z.object({
+const photoGalleries = defineCollection({
+  type: "data",
+  schema: ({ image }) =>
+    z.object({
       title: z.string().max(60),
-      excerpt: z.string().default(""),
-      featuredImage: z.string().default("/images/placeholder.png"),
-      category: z.string().default("Undefined"),
+      description: z.string().default(""),
+      featuredImage: image(),
+      gallerySource: z.string().default("/assets/*"),
       tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
       draft: z.boolean().default(false),
       publishedDate: z.date(),
@@ -35,5 +37,5 @@ const projectCollection = defineCollection({
 
 export const collections = {
   articles: articleCollection,
-  projects: projectCollection,
+  galleries: photoGalleries,
 }

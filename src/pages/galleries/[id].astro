@@ -1,0 +1,80 @@
+---
+
+import { getCollection } from 'astro:content';
+import { Picture } from "astro:assets";
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Container from '@components/Container.astro';
+import BackToPrev from '@/components/BackToPrev.astro';
+import GalleryImages from "@components/gallery/GalleryImages.astro";
+
+import { getGalleryImages } from '@/utils/galleryFunctions';
+
+export async function getStaticPaths () {
+  const allGalleries = (await getCollection("galleries"))
+  .filter((gallery) => !gallery.data.draft)
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+  
+  return allGalleries.map((gallery) => ({
+    params: { id: gallery.id },
+    props: gallery,
+  }));
+}
+
+const gallery = Astro.props;
+const collection = gallery.collection;
+const images = await getGalleryImages(gallery.id);
+---
+
+<BaseLayout>
+  <Container outerClass="mx-auto max-w-4xl mt-12 sm:mt-24">
+      <section class="animate my-10">
+        <BackToPrev href={`/${collection}`}> All {collection} </BackToPrev>
+      </section>
+      <section class="mx-auto max-w-6xl">
+        <article class="flex flex-col">
+          <div class="max-w-4xl mx-auto">
+            <Picture 
+              src={gallery.data.featuredImage}
+              alt={gallery.data.title}
+              width={900}
+              height={600}
+              loading="lazy"
+              format=['avif', 'webp', 'jpeg']
+              class:list={[
+                "rounded-lg transition-all",
+                "group-hover:shadow-lg group-hover:opacity-90"
+              ]}
+            />
+            <div class="my-8 sm:my-12">
+              <h1 class="items-start my-2 text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-300 sm:text-5xl">{gallery.data.title}</h1>
+              <span>{gallery.data.description}</span>
+            </div>
+          </div>
+          <div class="columns-2 sm:columns-2 gap-4">
+            {
+              images.map((image) => (
+                <Picture
+                  src={image}
+                  alt={`Image from ${gallery.data.title} album`}
+                  aspect-ratio="3:2"
+                  loading="lazy"
+                  format=['avif', 'webp', 'jpeg']
+                  class="rounded-lg transition-all mb-4"
+                  data-album-image
+                />
+              ))
+            }
+          </div>
+          <div class="max-w-4xl">
+            <div class="flex font-bold text-lg mt-8 pt-4"> 
+              Topics related to this gallery 
+            </div>
+            <div class="my-3">
+              All tags
+            </div>
+          </div>
+        </article>
+      </section>
+  </Container>
+</BaseLayout>

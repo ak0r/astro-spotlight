@@ -10,7 +10,7 @@ export const SiteMeta = {
 
 export const HeaderLinks: NavLinks = [
   { title: "Articles", url: "/articles", },
-  { title: "Gallery", url: "/gallery", },
+  { title: "Galleries", url: "/galleries", },
   // { title: "Notes", url: "/notes", },
   { title: "About", url: "/about", },
 ];
@@ -45,5 +45,5 @@ export const NotesMeta: PageMeta = {
 };
 
 export const GalleryMeta: PageMeta = {
-  title: "Captured Moments and Snapshots",  description: "A gallery of my favorite photos, showcasing beautiful landscapes, and spontaneous moments from my adventures",
+  title: "Captured Moments and Snapshots",  description: "A collection of my favorite photos, showcasing beautiful landscapes, and spontaneous moments from my adventures",
 };
