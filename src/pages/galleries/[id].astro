@@ -1,14 +1,13 @@
 ---
-
-import { getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from "astro:content";
 import { Picture } from "astro:assets";
 
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import BackToPrev from '@/components/BackToPrev.astro';
-import GalleryImages from "@components/gallery/GalleryImages.astro";
-
+import Link from "@/components/LinkMod.astro";
 import { getGalleryImages } from '@/utils/galleryFunctions';
+import { slugify } from '@utils/commonFunctions';
 
 export async function getStaticPaths () {
   const allGalleries = (await getCollection("galleries"))
@@ -20,7 +19,7 @@ export async function getStaticPaths () {
     props: gallery,
   }));
 }
-
+type Props = CollectionEntry<"galleries">;
 const gallery = Astro.props;
 const collection = gallery.collection;
 const images = await getGalleryImages(gallery.id);
@@ -33,12 +32,11 @@ const images = await getGalleryImages(gallery.id);
       </section>
       <section class="mx-auto max-w-6xl">
         <article class="flex flex-col">
-          <div class="max-w-4xl mx-auto">
+          <div class="mx-auto">
             <Picture 
               src={gallery.data.featuredImage}
               alt={gallery.data.title}
-              width={900}
-              height={600}
+              aspect-ratio="3:2"
               loading="lazy"
               format=['avif', 'webp', 'jpeg']
               class:list={[
@@ -54,15 +52,18 @@ const images = await getGalleryImages(gallery.id);
           <div class="columns-2 sm:columns-2 gap-4">
             {
               images.map((image) => (
-                <Picture
-                  src={image}
-                  alt={`Image from ${gallery.data.title} album`}
-                  aspect-ratio="3:2"
-                  loading="lazy"
-                  format=['avif', 'webp', 'jpeg']
-                  class="rounded-lg transition-all mb-4"
-                  data-album-image
-                />
+                <div class="image-container" id="gallery">
+                  <a href={image.src} class="image-link glightbox">
+                    <Picture
+                      src={image}
+                      alt={`Image from ${gallery.data.title} album`}
+                      aspect-ratio="3:2"
+                      loading="lazy"
+                      format=['avif', 'webp', 'jpeg']
+                      class="rounded-lg image transition-all mb-4 border border-transparent hover:border-black/50 dark:hover:border-white/50 "
+                    />
+                  </a>
+                </div>
               ))
             }
           </div>
@@ -71,10 +72,23 @@ const images = await getGalleryImages(gallery.id);
               Topics related to this gallery 
             </div>
             <div class="my-3">
-              All tags
+              {
+                gallery.data.tags.length > 0 && (
+                  <div class="flex flex-wrap mt-4 gap-x-5 gap-y-1 text-md text-zinc-500 dark:text-zinc-400">
+                    {
+                      gallery.data.tags.map((tag: string) => (
+                      <Link href={`/${collection}/tag/${slugify(tag)}`} className="text-main hover:underline" isCard={false}>
+                          #{tag}
+                      </Link>
+                    ))}
+                  </div>
+                )
+              }
             </div>
           </div>
         </article>
       </section>
   </Container>
 </BaseLayout>
+
+<script src="../../utils/lightbox.js" />
