@@ -2,10 +2,17 @@
 import Container from "./Container.astro";
 import { FooterLinks } from '@configs/configs'
 import Link from "./LinkMod.astro";
+import BackToTop from "./BackToTop.astro";
 ---
 
 <footer class="mt-16 pb-10">
   <Container>
+    <div class="relative">
+      <div class="absolute -top-12 right-0">
+        <BackToTop />
+      </div>
+    </div>
+
     <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
 			<div class="flex gap-6 text-sm font-medium ">
         {
