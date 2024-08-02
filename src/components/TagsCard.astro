@@ -1,9 +1,10 @@
 ---
-import { getPosts, getUniqueTags } from '@/utils/blogFunctions';
+import { getAllPosts, getUniqueTags } from '@/utils/blogFunctions';
 import { slugify } from "@/utils/commonFunctions";
 
 const { collection } = Astro.props
-const allPosts = await getPosts(collection);
+// const allPosts = await getPosts(collection);
+const allPosts = await getAllPosts();
 const uniqueTags = getUniqueTags(allPosts);
 
 ---

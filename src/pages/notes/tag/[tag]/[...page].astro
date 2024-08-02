@@ -32,6 +32,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
 interface Props {
 	page: Page<CollectionEntry<"articles">>;
+  tag: string;
 }
 
 const { page, tag } = Astro.props;

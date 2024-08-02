@@ -17,15 +17,16 @@ export async function getStaticPaths() {
   }));
 }
 type Props = CollectionEntry<"articles">;
+const { slug } = Astro.params;
 
 const posts = (await getCollection("articles"))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
 
 function getNextPost() {
-  let postIndex;
+  let postIndex: number;
   for (const post of posts) {
-    if (post.slug === Astro.params.slug) {
+    if (post.slug === slug) {
       postIndex = posts.indexOf(post);
       return posts[postIndex + 1];
     }
@@ -33,9 +34,9 @@ function getNextPost() {
 }
 
 function getPrevPost() {
-  let postIndex;
+  let postIndex: number;
   for (const post of posts) {
-    if (post.slug === Astro.params.slug) {
+    if (post.slug === slug) {
       postIndex = posts.indexOf(post);
       return posts[postIndex - 1];
     }
@@ -46,7 +47,8 @@ const nextPost = getNextPost();
 const prevPost = getPrevPost();
 
 const post = Astro.props;
-const { Content, headings } = await post.render();
+
+const { Content } = await post.render();
 const collection = post.collection;
 
 ---

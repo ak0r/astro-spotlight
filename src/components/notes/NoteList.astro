@@ -2,7 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import { getPostSortDate } from '@/utils/blogFunctions';
 import { getShortDate, slugify } from "@/utils/commonFunctions";
-import Link from '@/components/LinkMod.astro'
 
 type Props = {
     singlePost: CollectionEntry<"articles">;
@@ -11,7 +10,7 @@ type Props = {
 const { singlePost } = Astro.props;
 const postDate = getPostSortDate(singlePost);
 const formattedDate = getShortDate(postDate);
-const postURL = singlePost.collection + "/" + slugify(singlePost.slug);
+const postURL = `${singlePost.collection}/${slugify(singlePost.slug)}`;
 ---
 <article class="group flex flex-row relative">
   <div class="flex justify-start items-center w-full">

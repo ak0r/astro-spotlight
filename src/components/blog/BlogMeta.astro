@@ -1,5 +1,5 @@
 ---
-import { slugify, getFormattedDate } from '@utils/commonFunctions'
+import { getFormattedDate } from '@utils/commonFunctions'
 
 interface Props {
 	pubDate: Date;
@@ -8,7 +8,7 @@ interface Props {
     readTime: string;
 }
 
-const { pubDate, category, className, readTime } = Astro.props;
+const { pubDate, className, readTime } = Astro.props;
 ---
 <div class:list={["space-x-2 text-xs font-medium", className]}>
     <!-- <Link href={`/articles/${slugify(category)}/`} className='w-fit inline-flex flex-nowrap p-3 ring-1 ring-neutral-500/50' isCard group>

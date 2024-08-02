@@ -6,7 +6,6 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Container from '@components/Container.astro';
 import PageTitle from '@components/PageTitle.astro';
 import Paginator from '@/components/Paginator.astro';
-import BlogCard from '@/components/blog/BlogCard.astro';
 
 import { getAllPosts, sortPostsByDate, getPostsByCategory } from '@/utils/blogFunctions';
 import { slugify } from "@/utils/commonFunctions";
@@ -29,6 +28,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
 interface Props {
 	page: Page<CollectionEntry<"articles">>;
+  category: string;
 }
 
 const { page, category } = Astro.props;
@@ -67,11 +67,11 @@ const pageTitle = {
         <div>
           <!-- Blog List -->
           <ul class="w-full space-y-4 my-6">
-          {
+          <!-- {
               page.data.map((p) => (
                 <BlogCard singlePost={p} />
               ))
-          }
+          } -->
           </ul>
         </div>
         <div class="flex flex-row justify-around">

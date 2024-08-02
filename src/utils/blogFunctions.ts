@@ -1,9 +1,8 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import { slugify } from "./commonFunctions";
-const isProd = import.meta.env.PROD;
-const isDev = import.meta.env.DEV;
 
 export async function getPosts(collection: "articles" | "projects" = "articles") {
+
 	return await getCollection(collection as any, ({ data }) => {
 		return import.meta.env.PROD ? !data.draft : true;
 	});
