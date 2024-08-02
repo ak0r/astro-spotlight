@@ -25,7 +25,7 @@ const posts = (await getCollection("articles"))
   .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
 
 function getNextPost() {
-  let postIndex;
+  let postIndex: number;
   for (const post of posts) {
     if (post.slug === slug) {
       postIndex = posts.indexOf(post);
@@ -35,7 +35,7 @@ function getNextPost() {
 }
 
 function getPrevPost() {
-  let postIndex;
+  let postIndex: number;
   for (const post of posts) {
     if (post.slug === slug) {
       postIndex = posts.indexOf(post);

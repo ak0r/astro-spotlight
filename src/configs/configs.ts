@@ -1,11 +1,12 @@
 import type { NavLinks, PageMeta, } from './types';
 
 export const SiteMeta = {
-  title: "John Doe",
-  description: "This is site description",
+  title: "Astro-Spotlight",
+  description: "Starter template for Astro.build with Tailwind CSS",
   url: "htps://example.com",
   path: "/",
-  logo: "/images/avatar.png"
+  logo: "/images/avatar.png",
+  image: "/images/avatar.png"
 };
 
 export const HeaderLinks: NavLinks = [

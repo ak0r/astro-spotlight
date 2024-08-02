@@ -1,13 +1,38 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import "@fontsource-variable/inter";
+import { SiteMeta } from "@/configs/configs";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <meta charset="utf-8" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
-<title>Astro</title>
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{SiteMeta.title}</title>
+<meta name="title" content={SiteMeta.title} />
+<meta name="description" content={SiteMeta.description}/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={SiteMeta.title} />
+<meta property="og:description" content={SiteMeta.description} />
+<meta property="og:image" content={new URL(SiteMeta.image, Astro.url)} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={SiteMeta.title} />
+<meta property="twitter:description" content={SiteMeta.description} />
+<meta property="twitter:image" content={new URL(SiteMeta.image, Astro.url)} />
 
 <ViewTransitions />
 
