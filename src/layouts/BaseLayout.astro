@@ -4,19 +4,19 @@ import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import MobileDrawer from "@/components/MobileDrawer.astro"
 import PageFind from "@components/PageFind.astro";
+import { SiteMeta } from "@/configs/configs";
+type Props = {
+  title: string;
+  description: string;
+};
 
-// type Props = {
-//   title: string;
-//   description: string;
-// };
-
-// const { title, description } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="text-base h-full antialiased">
   <head>
-    <Head />
+    <Head title={`${title} | ${SiteMeta.title}`} description={description}/>
   </head>
   <body class="break-words leading-6 transition-colors duration-500 ease-in-out bg-neutral-200 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
     <div class="flex flex-col min-h-screen">

@@ -1,0 +1,37 @@
+---
+import Container from "@/components/Container.astro";
+import PageTitle from "@/components/PageTitle.astro";
+import SocialLinks from "@/components/SocialLinks.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SearchInput from "astro-pagefind/components/Search";
+import { SocialMedia } from '@configs/configs'
+---
+
+<BaseLayout title={"Finding something?"} description="Search here...">
+  <Container outerClass="mt-12 sm:mt-24">
+    <div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+      <div class="lg:order-first lg:row-span-2">
+				<PageTitle title={"Finding something?"} desc="Search here..." />
+				<div class="mt-6 flex gap-6">
+					<SocialLinks source={SocialMedia} className="social-icons"></SocialLinks>
+				</div>
+			</div>
+    </div>
+  </Container>
+  <Container outerClass="mt-12 sm:mt-24">
+		<div class="mt-16 sm:mt-20">
+      <!-- <div id="search"></div> -->
+      <SearchInput 
+        id="search-me" 
+        className="pagefind-ui" 
+        uiOptions={{ 
+          showImages: false,
+          exerptLength: 15,
+          bundlePath: true,
+          debounceTimeoutMs: 500,
+          resetStyles: false
+        }}>
+      </SearchInput>
+    </div>
+  </Container>
+</BaseLayout>

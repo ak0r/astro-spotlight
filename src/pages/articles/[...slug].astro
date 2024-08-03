@@ -52,7 +52,7 @@ const { Content } = await post.render();
 const collection = post.collection;
 
 ---
-<BaseLayout>
+<BaseLayout title={post.data.title} description={post.data.excerpt}>
     <Container outerClass="mx-auto max-w-4xl mt-12 sm:mt-24">
         <section class="animate my-10">
           <BackToPrev href={`/${collection}`}> All {collection} </BackToPrev>

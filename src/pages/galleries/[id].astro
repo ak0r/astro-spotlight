@@ -25,7 +25,7 @@ const collection = gallery.collection;
 const images = await getGalleryImages(gallery.id);
 ---
 
-<BaseLayout>
+<BaseLayout title={gallery.data.title} description={gallery.data.description}>
   <Container outerClass="mx-auto max-w-4xl mt-12 sm:mt-24">
       <section class="animate my-10">
         <BackToPrev href={`/${collection}`}> All {collection} </BackToPrev>
